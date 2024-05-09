@@ -7,18 +7,18 @@ import java.util.List;
 
 public class TaskServiceImpl implements TaskService {
     @Override
-    public Task createTask(Task task) {
-        return null;
+    public void createTask(Task task) {
+
     }
 
     @Override
-    public Task uptadeTask(Long id, Task task) {
-        return null;
+    public void uptadeTask(Long id, Task task) {
+
     }
 
     @Override
-    public Task deleteTask(Long id) {
-        return null;
+    public void deleteTask(Long id) {
+
     }
 
     @Override

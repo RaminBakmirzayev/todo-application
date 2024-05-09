@@ -5,9 +5,9 @@ import entity.Task;
 import java.util.List;
 
 public interface TaskService {
-    Task createTask(Task task);
-    Task uptadeTask(Long id,Task task);
-    Task deleteTask(Long id);
+   void createTask(Task task);
+    void uptadeTask(Long id,Task task);
+    void deleteTask(Long id);
     Task getTask(Long id);
 
     List<Task> getTasks();
