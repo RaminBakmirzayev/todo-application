@@ -5,20 +5,22 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 @Setter
 @Getter
 public class UserRepository {
-    private  final List<User> users = new ArrayList<>();
+    private final List<User> users = new ArrayList<>();
 
-    public void addUser(User user){
+    public void addUser(User user) {
         users.add(user);
     }
 
-    public void updateUser(Long id,User user){
+    public void updateUser(Long id, User user) {
         User user1 = findUserById(id);
-        if (user1== null) {
+        if (user1 == null) {
             System.out.println("User not found by id: " + id);
             return;
         }
@@ -51,5 +53,10 @@ public class UserRepository {
         return null;
     }
 
+    public User findUserByEmail(String email) {
+        return users.stream()
+                .filter(user -> user.getEmail().equals(email))
+                .findFirst().orElse(null);
+    }
 
 }
