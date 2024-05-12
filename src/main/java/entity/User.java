@@ -15,6 +15,19 @@ public class User {
     private String password;
     private boolean isActive=false;
 
+    public User(Long id, String name, String email, String password) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password =  password;
+    }
+
     @Override
     public String toString() {
         return "[" + "Name: "+name +  ",Email:" + email  + ",Password:" + password + ",Id:" +id + " "+ "]";

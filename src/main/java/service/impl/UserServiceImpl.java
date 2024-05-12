@@ -18,14 +18,16 @@ public class UserServiceImpl implements UserService {
         isPasswordNotValid(user);
         if (isNotEmailValid(user)) return;
         checkEmailUnique(user);
-
         userRepository.addUser(user);
         System.out.println("User" + user + "added successfully");
+        user.setActive(true);
     }
 
     @Override
     public void loginUser(UserRequestDto userRequest) {
         User user = userRepository.findUserByEmail(userRequest.getEmail());
+        if (isNotEmailValid(user)) return;
+
         if (user == null) {
             System.out.println("User not found by email " + userRequest.getEmail());
             return;
@@ -66,7 +68,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private boolean isNotEmailValid(User user) {
-        if (!user.getEmail().matches("(.+)@(\\S+)$")) {
+        if (!user.getEmail().matches("^(.+)@(\\S+)$")) {
             System.out.println("Email not valid: " + user.getEmail());
             return true;
         }
@@ -79,12 +81,20 @@ public class UserServiceImpl implements UserService {
         if (isNotEmailValid(user)) {
             return;
         }
+        if (!userRepository.findUserById(id).isActive()){
+            System.out.println("User is not active.Please login");
+            return;
+        }
         checkEmailUnique(user);
         userRepository.updateUser(id, user);
     }
 
     @Override
     public void deleteUser(Long id) {
+        if (!userRepository.findUserById(id).isActive()){
+            System.out.println("User is not active.Please login");
+            return;
+        }
         userRepository.removeUser(id);
     }
 
@@ -93,7 +103,10 @@ public class UserServiceImpl implements UserService {
         User userById = userRepository.findUserById(id);
         if (userById == null) {
             throw new RuntimeException("User not found by id: " + id);
-
+        }
+        if(!userById.isActive()){
+            System.out.println("User is not active.Please login");
+            return null;
         }
 
         return userById;

@@ -14,6 +14,13 @@ import java.util.List;
 public class UserRepository {
     private final List<User> users = new ArrayList<>();
 
+    private static  UserRepository instance =new UserRepository();
+    private UserRepository() {}
+    public static UserRepository getInstance() {
+        return instance;
+    }
+
+
     public void addUser(User user) {
         users.add(user);
     }
